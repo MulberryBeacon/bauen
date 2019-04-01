@@ -2,16 +2,33 @@
 
 """
 Script to automatically configure a workspace with a list of GitHub repositories.
+
+Author: Eduardo Ferreira
 """
 
+import configparser
 from pathlib import Path
 
 import requests
 from git import Repo
 
 
-_BASE_DIRECTORY = 'work2/github'
-_HOME = str(Path.home().resolve())
+_BASE_DIRECTORY = Path('work2', 'github')
+_CONFIG_FILE = Path('.github', 'github.properties')
+_HOME = Path.home()
+
+
+def read_config() -> str:
+    """
+    Reads the GitHub Personal Access Token from a configuration file.
+
+    :returns:
+        The access token
+    """
+    config = configparser.ConfigParser()
+    path = str(Path(_HOME, _CONFIG_FILE).resolve())
+    config.read(path)
+    return config.get('GitHub', 'token')
 
 
 def get_repo_list(token: str) -> list:
@@ -44,7 +61,7 @@ def clone_repo(repo_ssh: str) -> str:
     :returns:
         True if the repository was cloned successfully; False otherwise
     """
-    path = str(Path(Path.home(), _BASE_DIRECTORY, Path(repo_ssh).stem).resolve())
+    path = str(Path(_HOME, _BASE_DIRECTORY, Path(repo_ssh).stem).resolve())
     repo = Repo.clone_from(repo_ssh, path)
     if repo and repo.working_tree_dir == path:
         return repo.working_tree_dir
@@ -56,7 +73,11 @@ def clone_repos():
     """
     Fetches the list of repositories and clones them into the desired directory.
     """
-    response = get_repo_list('2f2edfd3564ed6832fc862267a3ced3aca80eb91')
+    token = read_config()
+    if not token:
+        raise FileNotFoundError('Configuration file "{}" not found.'.format(_CONFIG_FILE))
+
+    response = get_repo_list(token)
     for x in response:
         repo = clone_repo(x['ssh_url'])
         if repo:
