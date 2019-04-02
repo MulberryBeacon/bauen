@@ -7,7 +7,7 @@ quickly fetch and clone my list of GitHub repositories.
 
 The script uses a GitHub personal access token stored in a directory in the root
 of the user's home directory called `.github`. Its purpose is to avoid having to
-pass the token as a command line parameter when running script. The list of GitHub
+pass the token as a command line parameter when running the script. The list of GitHub
 repositories is cloned to the directory `work/github` in the root of the user's
 home directory.
 
