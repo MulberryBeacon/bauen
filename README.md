@@ -5,11 +5,13 @@ Script to automatically configure a workspace with a list of GitHub repositories
 Given that I frequently spin up disposable development workspaces, I need to
 quickly fetch and clone my list of GitHub repositories.
 
-The script looks for a GitHub Personal Access Token in a directory called `.github`
-in the root of the user's home directory. The list of GitHub repositories is
-cloned to the directory `work/github` in the root of the user's home directory.
+The script uses a GitHub personal access token stored in a directory in the root
+of the user's home directory called `.github`. Its purpose is to avoid having to
+pass the token as a command line parameter when running script. The list of GitHub
+repositories is cloned to the directory `work/github` in the root of the user's
+home directory.
 
-This *is not* production ready code.
+This _is not_ production ready code.
 
 ## License
 
