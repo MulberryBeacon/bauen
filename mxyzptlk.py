@@ -13,7 +13,7 @@ import requests
 from git import Repo
 
 
-_BASE_DIRECTORY = Path('work2', 'github')
+_BASE_DIRECTORY = Path('work', 'github')
 _CONFIG_FILE = Path('.github', 'github.properties')
 _HOME = Path.home()
 
