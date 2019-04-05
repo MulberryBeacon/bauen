@@ -22,7 +22,7 @@ def read_config() -> str:
     """
     Reads the GitHub Personal Access Token from a configuration file.
 
-    :returns:
+    :return:
         The access token
     """
     config = configparser.ConfigParser()
@@ -38,7 +38,7 @@ def get_repo_list(token: str) -> list:
     :param token:
         The GitHub Personal Access Token
 
-    :returns:
+    :return:
         A JSON object with the list of repositories
     """
     url = 'https://api.github.com/user/repos'
@@ -58,7 +58,7 @@ def clone_repo(repo_ssh: str) -> str:
     :param repo_ssh:
         The SSH repository address
 
-    :returns:
+    :return:
         True if the repository was cloned successfully; False otherwise
     """
     path = str(Path(_HOME, _BASE_DIRECTORY, Path(repo_ssh).stem).resolve())
