@@ -2,14 +2,45 @@
 
 Script to automatically configure a workspace with a list of GitHub repositories.
 
+## Description
+
 Given that I frequently spin up disposable development workspaces, I need to
 quickly fetch and clone my list of GitHub repositories.
 
-The script uses a GitHub personal access token stored in a directory in the root
-of the user's home directory called `.github`. Its purpose is to avoid having to
-pass the token as a command line parameter when running the script. The list of
-GitHub repositories is cloned to the directory `work/github` in the root of the
-user's home directory.
+## Configuration
+
+The script uses a GitHub personal access token that is stored in a properties
+file called `github.properties` located in a directory in the root of the
+user's home directory called `.github`:
+
+```
+/home/user/.github/github.properties
+```
+
+The purpose of the properties file is to avoid having to pass the token as a
+command line parameter when running the script:
+
+```
+[GitHub]
+token = super_secret_token
+```
+
+The list of GitHub repositories is cloned to the directory `work/github` in the
+root of the user's home directory:
+
+```
+/home/user/work/github/
+```
+
+## Dependencies
+
+All development and testing activities are carried out on Ubuntu 18.10 using
+Python 3.6.7. The following packages are required:
+
+* `requests`
+* `gitpython`
+
+## Disclaimer
 
 This **is not** production ready code.
 
