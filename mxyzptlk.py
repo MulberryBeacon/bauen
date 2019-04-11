@@ -13,9 +13,10 @@ import requests
 from git import Repo
 
 
-_BASE_DIRECTORY = Path('work', 'github')
-_CONFIG_FILE = Path('.github', 'github.properties')
 _HOME = Path.home()
+_CONFIG_DIRECTORY = Path(_HOME, '.github')
+_CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'github.properties')
+_WORK_DIRECTORY = Path(_HOME, 'work', 'github')
 
 
 def read_config() -> str:
@@ -25,9 +26,15 @@ def read_config() -> str:
     :return:
         The access token
     """
+    if not _CONFIG_DIRECTORY.is_dir():
+        raise FileNotFoundError('Configuration directory "{}" not found.'.format(_CONFIG_DIRECTORY.resolve()))
+
+    if not _CONFIG_FILE.is_file():
+        raise FileNotFoundError('Configuration file "{}" not found.'.format(_CONFIG_FILE.resolve()))
+
     config = configparser.ConfigParser()
-    path = str(Path(_HOME, _CONFIG_FILE).resolve())
-    config.read(path)
+    config.read(str(_CONFIG_FILE.resolve()))
+
     return config.get('GitHub', 'token')
 
 
@@ -61,7 +68,7 @@ def clone_repo(repo_ssh: str) -> str:
     :return:
         True if the repository was cloned successfully; False otherwise
     """
-    path = str(Path(_HOME, _BASE_DIRECTORY, Path(repo_ssh).stem).resolve())
+    path = str(Path(_WORK_DIRECTORY, Path(repo_ssh).stem).resolve())
     repo = Repo.clone_from(repo_ssh, path)
     if repo and repo.working_tree_dir == path:
         return repo.working_tree_dir
@@ -81,9 +88,9 @@ def clone_repos():
     for x in response:
         repo = clone_repo(x['ssh_url'])
         if repo:
-            print('Repository "{}" created successfully'.format(repo))
+            print('Repository "{}" created successfully.'.format(repo))
         else:
-            print('Couldn\' clone repository {}'.format(repo))
+            print('Couldn\' clone repository {}.'.format(repo))
 
 
 if __name__ == '__main__':
