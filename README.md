@@ -32,6 +32,16 @@ root of the user's home directory:
 /home/user/work/github/
 ```
 
+## Instructions
+
+To run the script, navigate to the directory with the source code and use the
+Python executable:
+
+```
+cd /path/to/mxyzptlk/
+python3 mxyzptlk.py
+```
+
 ## Dependencies
 
 All development and testing activities are carried out on Ubuntu 18.10 using
