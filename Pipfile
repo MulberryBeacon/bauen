@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-requests = "2.21.0"
-gitpython = "2.1.11"
+requests = "*"
+gitpython = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
