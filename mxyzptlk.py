@@ -17,7 +17,7 @@ _HOME = Path.home()
 _CONFIG_DIRECTORY = Path(_HOME, '.mxyzptlk')
 _CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'git.properties')
 _BITBUCKET_DIRECTORY = Path(_HOME, 'work', 'bitbucket')
-_GITHUB_DIRECTORY = Path(_HOME, 'work', 'github')
+_GITHUB_DIRECTORY = Path(_HOME, 'work', 'github2')
 _GITLAB_DIRECTORY = Path(_HOME, 'work', 'gitlab')
 
 
@@ -106,7 +106,7 @@ def clone_repo(repo_ssh: str) -> str:
     :return:
         True if the repository was cloned successfully; False otherwise
     """
-    path = str(Path(_WORK_DIRECTORY, Path(repo_ssh).stem).resolve())
+    path = str(Path(_GITHUB_DIRECTORY, Path(repo_ssh).stem).resolve())
     repo = Repo.clone_from(repo_ssh, path)
     if repo and repo.working_tree_dir == path:
         return repo.working_tree_dir
