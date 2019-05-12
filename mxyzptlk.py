@@ -14,14 +14,52 @@ from git import Repo
 
 
 _HOME = Path.home()
-_CONFIG_DIRECTORY = Path(_HOME, '.github')
-_CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'github.properties')
-_WORK_DIRECTORY = Path(_HOME, 'work', 'github')
+_CONFIG_DIRECTORY = Path(_HOME, '.mxyzptlk')
+_CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'git.properties')
+_BITBUCKET_DIRECTORY = Path(_HOME, 'work', 'bitbucket')
+_GITHUB_DIRECTORY = Path(_HOME, 'work', 'github')
+_GITLAB_DIRECTORY = Path(_HOME, 'work', 'gitlab')
 
 
-def read_config() -> str:
+def read_config_github() -> str:
     """
-    Reads the GitHub Personal Access Token from a configuration file.
+    Reads the GitHub token from the configuration file.
+
+    :return:
+        The access token
+    """
+    return _read_config('GitHub', 'token')
+
+
+def read_config_gitlab() -> str:
+    """
+    Reads the Gitlab token from the configuration file.
+
+    :return:
+        The access token
+    """
+    return _read_config('GitLab', 'token')
+
+
+def read_config_bitbucket() -> str:
+    """
+    Reads the Bitbucket token from the configuration file.
+
+    :return:
+        The access token
+    """
+    return _read_config('Bitbucket', 'token')
+
+
+def _read_config(section: str, value: str) -> str:
+    """
+    Reads the Bitbucket token from the configuration file.
+
+    :param section:
+        The name of the section in the configuration file
+
+    :param value:
+        The value to be retrieved
 
     :return:
         The access token
@@ -34,8 +72,8 @@ def read_config() -> str:
 
     config = configparser.ConfigParser()
     config.read(str(_CONFIG_FILE.resolve()))
-
-    return config.get('GitHub', 'token')
+    
+    return config.get(section, value)
 
 
 def get_repo_list(token: str) -> list:
@@ -80,7 +118,7 @@ def clone_repos():
     """
     Fetches the list of repositories and clones them into the desired directory.
     """
-    token = read_config()
+    token = read_config_github()
     if not token:
         raise FileNotFoundError('Configuration file "{}" not found.'.format(_CONFIG_FILE))
 
