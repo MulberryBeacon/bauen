@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Script to automatically configure a workspace with a list of GitHub repositories.
+Handles the configuration file.
 
 Author: Eduardo Ferreira
 """
@@ -18,7 +18,7 @@ WORK_DIRECTORY = Path(HOME, 'work')
 
 def read_config(section: str, value: str) -> str:
     """
-    Reads the Bitbucket token from the configuration file.
+    Reads the token from the configuration file.
 
     :param section:
         The name of the section in the configuration file
