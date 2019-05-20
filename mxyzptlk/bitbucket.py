@@ -29,9 +29,11 @@ def _get_access_token(key: str, secret: str) -> str:
         The Bitbucket access token
     """
     url = 'https://bitbucket.org/site/oauth2/access_token'
+
     data = {
         'grant_type': 'client_credentials'
     }
+
     response = requests.post(url, data, auth=(key, secret))
 
     if response.status_code != requests.codes.get('ok'):
@@ -54,9 +56,11 @@ def _get_repo_list(user: str, token: str) -> list:
         A JSON object with the list of repositories
     """
     url = 'https://api.bitbucket.org/2.0/repositories/{}'.format(user)
+
     headers = {
         'Authorization': 'Bearer {}'.format(token)
     }
+
     response = requests.get(url, headers=headers)
 
     if response.status_code != requests.codes.get('ok'):

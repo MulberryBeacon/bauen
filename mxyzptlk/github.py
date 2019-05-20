@@ -17,7 +17,7 @@ _GITHUB_DIRECTORY = config.get_work_directory('github')
 
 def _get_repo_list(token: str) -> list:
     """
-    Retrieves the list of repositories for the given username.
+    Retrieves the list of repositories for the authenticated user.
 
     :param token:
         The GitHub access token
@@ -26,9 +26,11 @@ def _get_repo_list(token: str) -> list:
         A JSON object with the list of repositories
     """
     url = 'https://api.github.com/user/repos'
+
     headers = {
         'Authorization': 'token {}'.format(token)
     }
+
     response = requests.get(url, headers=headers)
 
     if response.status_code != requests.codes.get('ok'):

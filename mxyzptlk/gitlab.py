@@ -15,21 +15,28 @@ import mxyzptlk.repository as repository
 _GITLAB_DIRECTORY = config.get_work_directory('gitlab')
 
 
-def get_repo_list(token: str) -> list:
+def _get_repo_list(token: str) -> list:
     """
     Retrieves the list of repositories for the given username.
 
     :param token:
-        The GitHub Personal Access Token
+        The GitLab access token
 
     :return:
         A JSON object with the list of repositories
     """
-    url = 'https://api.github.com/user/repos'
+    url = 'https://gitlab.com/api/v4/projects'
+
     headers = {
-        'Authorization': 'token {}'.format(token)
+        'Private-Token': token
     }
-    response = requests.get(url, headers=headers)
+
+    params = {
+        'simple': True,
+        'owned': True
+    }
+
+    response = requests.get(url, params=params, headers=headers)
 
     if response.status_code != requests.codes.get('ok'):
         response.raise_for_status()
@@ -50,3 +57,9 @@ def clone_repos():
             print('Repository "{}" created successfully.'.format(repo))
         else:
             print('Couldn\'t clone repository {}.'.format(repo))
+
+
+if __name__ == '__main__':
+    token = config.read_config('GitLab', 'token')
+    response = _get_repo_list(token)
+    print(response)
