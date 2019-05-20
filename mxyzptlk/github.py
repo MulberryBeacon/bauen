@@ -6,23 +6,21 @@ Script to automatically configure a workspace with a list of GitHub repositories
 Author: Eduardo Ferreira
 """
 
-from pathlib import Path
-
 import requests
 
 import mxyzptlk.config as config
 import mxyzptlk.repository as repository
 
 
-_GITHUB_DIRECTORY = Path(config.WORK_DIRECTORY, 'github')
+_GITHUB_DIRECTORY = config.get_work_directory('github')
 
 
-def get_repo_list(token: str) -> list:
+def _get_repo_list(token: str) -> list:
     """
     Retrieves the list of repositories for the given username.
 
     :param token:
-        The GitHub Personal Access Token
+        The GitHub access token
 
     :return:
         A JSON object with the list of repositories
@@ -44,7 +42,7 @@ def clone_repos():
     Fetches the list of repositories and clones them into the desired directory.
     """
     token = config.read_config('GitHub', 'token')
-    response = get_repo_list(token)
+    response = _get_repo_list(token)
 
     for parameters in response:
         repo = repository.clone_repo(_GITHUB_DIRECTORY, parameters['ssh_url'])

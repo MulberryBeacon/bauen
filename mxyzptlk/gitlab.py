@@ -6,15 +6,13 @@ Script to automatically configure a workspace with a list of GitLab repositories
 Author: Eduardo Ferreira
 """
 
-from pathlib import Path
-
 import requests
 
 import mxyzptlk.config as config
 import mxyzptlk.repository as repository
 
 
-_GITLAB_DIRECTORY = Path(config.WORK_DIRECTORY, 'gitlab')
+_GITLAB_DIRECTORY = config.get_work_directory('gitlab')
 
 
 def get_repo_list(token: str) -> list:

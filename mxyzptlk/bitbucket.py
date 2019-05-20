@@ -6,24 +6,31 @@ Script to automatically configure a workspace with a list of Bitbucket repositor
 Author: Eduardo Ferreira
 """
 
-from pathlib import Path
-
 import requests
 
-import config as config
-import repository as repository
+import mxyzptlk.config as config
+import mxyzptlk.repository as repository
 
 
-_BITBUCKET_DIRECTORY = Path(config.WORK_DIRECTORY, 'bitbucket')
+_BITBUCKET_DIRECTORY = config.get_work_directory('bitbucket')
 
 
-def get_access_token(key: str, secret: str, code: str) -> str:
+def _get_access_token(key: str, secret: str) -> str:
     """
+    Requests an access token from Bitbucket.
+
+    :param key:
+        The OAuth consumer key
+
+    :param secret:
+        The OAuth consumer secret
+
+    :return:
+        The Bitbucket access token
     """
     url = 'https://bitbucket.org/site/oauth2/access_token'
     data = {
-        'grant_type': 'authorization_code',
-        'code': code
+        'grant_type': 'client_credentials'
     }
     response = requests.post(url, data, auth=(key, secret))
 
@@ -33,12 +40,15 @@ def get_access_token(key: str, secret: str, code: str) -> str:
     return response.json()['access_token']
 
 
-def get_repo_list(user: str, token: str) -> list:
+def _get_repo_list(user: str, token: str) -> list:
     """
     Retrieves the list of repositories for the given username.
 
+    :param user:
+        The Bitbucket username
+
     :param token:
-        The GitHub Personal Access Token
+        The Bitbucket access token
 
     :return:
         A JSON object with the list of repositories
@@ -52,7 +62,7 @@ def get_repo_list(user: str, token: str) -> list:
     if response.status_code != requests.codes.get('ok'):
         response.raise_for_status()
 
-    return response.json()
+    return response.json()['values']
 
 
 def clone_repos():
@@ -61,17 +71,14 @@ def clone_repos():
     """
     key = config.read_config('Bitbucket', 'key')
     secret = config.read_config('Bitbucket', 'secret')
-    code = config.read_config('Bitbucket', 'code')
-    token = get_access_token(key, secret, code)
-    print(token)
+    user = config.read_config('Bitbucket', 'user')
+
+    token = _get_access_token(key, secret)
+    response = _get_repo_list(user, token)
 
     for parameters in response:
-        repo = repository.clone_repo(_BITBUCKET_DIRECTORY, parameters['ssh_url'])
+        repo = repository.clone_repo(_BITBUCKET_DIRECTORY, parameters['links']['clone'][1]['href'])
         if repo:
             print('Repository "{}" created successfully.'.format(repo))
         else:
             print('Couldn\'t clone repository {}.'.format(repo))
-
-
-if __name__ == '__main__':
-    clone_repos()

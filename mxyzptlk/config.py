@@ -10,10 +10,10 @@ import configparser
 from pathlib import Path
 
 
-HOME = Path.home()
-_CONFIG_DIRECTORY = Path(HOME, '.mxyzptlk')
+_HOME = Path.home()
+_CONFIG_DIRECTORY = Path(_HOME, '.mxyzptlk')
 _CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'git.properties')
-WORK_DIRECTORY = Path(HOME, 'work')
+_WORK_DIRECTORY = Path(_HOME, 'work')
 
 
 def read_config(section: str, value: str) -> str:
@@ -49,3 +49,26 @@ def read_config(section: str, value: str) -> str:
         )
 
     return token
+
+
+def get_home_directory() -> str:
+    """
+    Gets the home directory of the current user.
+
+    :return:
+        The absolute path to the home directory
+    """
+    return _HOME
+
+
+def get_work_directory(directory: str) -> Path:
+    """
+    Gets the work directory.
+
+    :param directory:
+        The specific work directory
+
+    :return:
+        The absolute path to the work directory
+    """
+    return Path(_WORK_DIRECTORY, directory)
