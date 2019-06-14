@@ -49,17 +49,11 @@ def clone_repos():
     Fetches the list of repositories and clones them into the desired directory.
     """
     token = config.read_config('GitLab', 'token')
-    response = get_repo_list(token)
+    response = _get_repo_list(token)
 
     for parameters in response:
-        repo = repository.clone_repo(_GITLAB_DIRECTORY, parameters['ssh_url'])
+        repo = repository.clone_repo(_GITLAB_DIRECTORY, parameters['ssh_url_to_repo'])
         if repo:
             print('Repository "{}" created successfully.'.format(repo))
         else:
             print('Couldn\'t clone repository {}.'.format(repo))
-
-
-if __name__ == '__main__':
-    token = config.read_config('GitLab', 'token')
-    response = _get_repo_list(token)
-    print(response)
