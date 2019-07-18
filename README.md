@@ -9,20 +9,28 @@ quickly fetch and clone my list of GitHub repositories.
 
 ## Configuration
 
-The script uses a GitHub personal access token that is stored in a properties
-file called `github.properties` located in a directory in the root of the
-user's home directory called `.github`:
+The script uses the personal access information stored in a properties file
+called `git.properties` located in a directory in the root of the user's home
+directory called `.mxyzptlk`:
 
 ```
-/home/user/.github/github.properties
+/home/user/.mxyzptlk/git.properties
 ```
 
-The purpose of the properties file is to avoid having to pass the token as a
-command line parameter when running the script:
+The purpose of the properties file is to avoid having to pass the information as
+command line parameters when running the script:
 
 ```
+[Bitbucket]
+key = super_key
+secret = super_secret
+user = super_user
+
 [GitHub]
-token = super_secret_token
+token = super_token
+
+[GitLab]
+token = super_token
 ```
 
 The list of GitHub repositories is cloned to the directory `work/github` in the
@@ -44,8 +52,8 @@ python3 mxyzptlk.py
 
 ## Dependencies
 
-All development and testing activities are carried out on Ubuntu 18.10 using
-Python 3.6.7. The following packages are required:
+All development and testing activities are carried out on Windows 10 using
+Python 3.7.4. The following packages are required:
 
 * `requests`
 * `gitpython`
