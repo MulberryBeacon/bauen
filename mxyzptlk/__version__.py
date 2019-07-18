@@ -15,6 +15,7 @@ MMMMMMMMMMMMMMMMMMMMM                              MMMMMMMMMMMMMMMMMMMMM
                                   MMMM
                                    MM
 """
+
 __author__ = 'Eduardo Ferreira'
 __copyright__ = 'Copyright 2019 Eduardo Ferreira'
 __description__ = 'Script to automatically configure a workspace with a list of Git repositories.'
