@@ -10,13 +10,13 @@ from enum import Enum
 import argparse
 import logging
 
-import mxyzptlk.__version__ as version
-import mxyzptlk.bitbucket as bitbucket
-import mxyzptlk.github as github
-import mxyzptlk.gitlab as gitlab
+import bauen.__version__ as __version__
+import bauen.bitbucket as bitbucket
+import bauen.github as github
+import bauen.gitlab as gitlab
 
 logging.basicConfig(level=logging.INFO)
-_logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class GitName(Enum):
@@ -29,7 +29,10 @@ class GitName(Enum):
 
 
 def keyboard_interrupt():
-    _logger.warn('\nThe program execution was interrupted!\n')
+    """
+    Logs a warning message if a keyboard interrupt exception is detected.
+    """
+    LOGGER.warning('\nThe program execution was interrupted!\n')
 
 
 def parse_options(program: str, description: str, version: str) -> argparse.Namespace:
@@ -46,20 +49,36 @@ def parse_options(program: str, description: str, version: str) -> argparse.Name
         The list of command line arguments
     """
     parser = argparse.ArgumentParser(prog=program, description=description)
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + version)
-    parser.add_argument('-g', '--git', type=str, choices=[entry.value for entry in GitName],
-        dest='git_name', help='git provider', required=True)
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version='%(prog)s ' + version
+    )
+    parser.add_argument(
+        '-g',
+        '--git',
+        type=str,
+        choices=[entry.value for entry in GitName],
+        dest='git_name',
+        help='git provider',
+        required=True
+    )
 
     return parser.parse_args()
 
 
 def run():
     """
+    Run method.
     """
     try:
-        args = parse_options(version.__title__, version.__description__, version.__version__)
+        args = parse_options(
+            __version__.__title__,
+            __version__.__description__,
+            __version__.__version__
+        )
 
-        print(args.git_name)
         method = {
             GitName.BITBUCKET.value: bitbucket.clone_repos,
             GitName.GITHUB.value: github.clone_repos,
@@ -67,6 +86,6 @@ def run():
         }.get(args.git_name)
 
         return method()
-    except KeyboardInterrupt as e:
+    except KeyboardInterrupt:
         keyboard_interrupt()
         exit(1)

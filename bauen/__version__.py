@@ -18,8 +18,8 @@ MMMMMMMMMMMMMMMMMMMMM                              MMMMMMMMMMMMMMMMMMMMM
 
 __author__ = 'Eduardo Ferreira'
 __copyright__ = 'Copyright 2019 Eduardo Ferreira'
-__description__ = 'Script to automatically configure a workspace with a list of Git repositories.'
+__description__ = 'Configures a workspace with a list of Git repositories.'
 __license__ = 'MIT'
-__title__ = 'mxyzpltk'
-__url__ = 'https://github.com/MulberryBeacon/mxyzpltk'
+__title__ = 'bauen'
+__url__ = 'https://github.com/MulberryBeacon/bauen'
 __version__ = '0.0.1'

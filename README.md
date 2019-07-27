@@ -1,20 +1,21 @@
-# mxyzptlk
+# bauen
 
-Script to automatically configure a workspace with a list of GitHub repositories.
+Configures a workspace with a list of Git repositories.
 
 ## Description
 
 Given that I frequently spin up disposable development workspaces, I need to
-quickly fetch and clone my list of GitHub repositories.
+quickly fetch and clone the set of git repositories in my accounts on Bitbucket,
+GitHub, and GitLab.
 
 ## Configuration
 
 The script uses the personal access information stored in a properties file
 called `git.properties` located in a directory in the root of the user's home
-directory called `.mxyzptlk`:
+directory called `.bauen`:
 
 ```
-/home/user/.mxyzptlk/git.properties
+/home/user/.bauen/git.properties
 ```
 
 The purpose of the properties file is to avoid having to pass the information as
@@ -33,22 +34,31 @@ token = super_token
 token = super_token
 ```
 
-The list of GitHub repositories is cloned to the directory `work/github` in the
+The repositories are cloned to sub-directories of the directory `work` in the
 root of the user's home directory:
 
+* Bitbucket: `/home/user/work/bitbucket/`
+* GitHub: `/home/user/work/github/`
+* GitLab: `/home/user/work/gitlab/`
+
+## Install
+
+* Clone the repository
+
 ```
-/home/user/work/github/
+$ git clone git@github.com:MulberryBeacon/bauen.git
+```
+
+* Install with `pip`
+
+```
+$ cd /path/to/bauen
+$ pip install .
 ```
 
 ## Instructions
 
-To run the script, navigate to the directory with the source code and use the
-Python executable:
-
-```
-cd /path/to/mxyzptlk/
-python3 mxyzptlk.py
-```
+TBD
 
 ## Dependencies
 

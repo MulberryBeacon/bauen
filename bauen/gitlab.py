@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 """
-Script to automatically configure a workspace with a list of GitLab repositories.
+Configures a workspace with a list of GitLab repositories.
 
 Author: Eduardo Ferreira
 """
 
 import requests
 
-import mxyzptlk.config as config
-import mxyzptlk.repository as repository
+import bauen.config as config
+import bauen.repository as repository
 
 
 _GITLAB_DIRECTORY = config.get_work_directory('gitlab')
