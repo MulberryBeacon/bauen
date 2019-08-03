@@ -70,12 +70,9 @@ The `bauen` program has the following set of options:
     -g {bitbucket,github,gitlab}, --git {bitbucket,github,gitlab}
                           git provider
 
-The current syntax for the programs requires that the location of both input
-and output files be defined explicitly.
-
 ## Examples
 
-To clone the list of repositores on GitHub:
+To clone the list of repositories on GitHub:
 
     bauen -g github
 
