@@ -58,7 +58,26 @@ $ pip install .
 
 ## Instructions
 
-TBD
+The `bauen` program has the following set of options:
+
+    usage: bauen [-h] [-v] -g {bitbucket,github,gitlab}
+
+    Configures a workspace with a list of Git repositories.
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -v, --version         show program's version number and exit
+    -g {bitbucket,github,gitlab}, --git {bitbucket,github,gitlab}
+                          git provider
+
+The current syntax for the programs requires that the location of both input
+and output files be defined explicitly.
+
+## Examples
+
+To clone the list of repositores on GitHub:
+
+    bauen -g github
 
 ## Dependencies
 
@@ -67,6 +86,20 @@ Python 3.7.4. The following packages are required:
 
 * `requests`
 * `gitpython`
+
+## Code metrics
+
+`CLOC`
+
+    github.com/AlDanial/cloc v 1.80  T=0.50 s (18.0 files/s, 1088.0 lines/s)
+    -------------------------------------------------------------------------------
+    Language                     files          blank        comment           code
+    -------------------------------------------------------------------------------
+    Python                           8            115            143            186
+    Markdown                         1             34              0             66
+    -------------------------------------------------------------------------------
+    SUM:                             9            149            143            252
+    -------------------------------------------------------------------------------
 
 ## Disclaimer
 
