@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 _HOME = Path.home()
-_CONFIG_DIRECTORY = Path(_HOME, '.mxyzptlk')
+_CONFIG_DIRECTORY = Path(_HOME, '.bauen')
 _CONFIG_FILE = Path(_CONFIG_DIRECTORY, 'git.properties')
 _WORK_DIRECTORY = Path(_HOME, 'work')
 
