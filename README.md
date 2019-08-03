@@ -74,7 +74,7 @@ The `bauen` program has the following set of options:
 
 To clone the list of repositories on GitHub:
 
-    bauen -g github
+    $ bauen -g github
 
 ## Dependencies
 
@@ -85,8 +85,6 @@ Python 3.7.4. The following packages are required:
 * `gitpython`
 
 ## Code metrics
-
-`CLOC`
 
     github.com/AlDanial/cloc v 1.80  T=0.50 s (18.0 files/s, 1088.0 lines/s)
     -------------------------------------------------------------------------------
