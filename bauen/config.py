@@ -22,10 +22,8 @@ def read_config(section: str, value: str) -> str:
 
     :param section:
         The name of the section in the configuration file
-
     :param value:
         The value to be retrieved
-
     :return:
         The access token
     """
@@ -67,7 +65,6 @@ def get_work_directory(directory: str) -> Path:
 
     :param directory:
         The specific work directory
-
     :return:
         The absolute path to the work directory
     """

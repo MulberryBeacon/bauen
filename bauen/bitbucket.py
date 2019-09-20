@@ -21,10 +21,8 @@ def _get_access_token(key: str, secret: str) -> str:
 
     :param key:
         The OAuth consumer key
-
     :param secret:
         The OAuth consumer secret
-
     :return:
         The Bitbucket access token
     """
@@ -48,10 +46,8 @@ def _get_repo_list(user: str, token: str) -> list:
 
     :param user:
         The Bitbucket username
-
     :param token:
         The Bitbucket access token
-
     :return:
         A JSON object with the list of repositories
     """

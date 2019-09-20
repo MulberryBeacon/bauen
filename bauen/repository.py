@@ -19,7 +19,6 @@ def clone_repo(directory: str, repo_ssh: str) -> str:
         The directory into which the repository will be cloned
     :param repo_ssh:
         The SSH repository address
-
     :return:
         True if the repository was cloned successfully; False otherwise
     """

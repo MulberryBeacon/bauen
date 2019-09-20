@@ -21,7 +21,6 @@ def _get_repo_list(token: str) -> list:
 
     :param token:
         The GitHub access token
-
     :return:
         A JSON object with the list of repositories
     """
